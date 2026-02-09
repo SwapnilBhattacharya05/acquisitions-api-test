@@ -38,18 +38,14 @@
   "homepage": "https://github.com/SwapnilBhattacharya05/acquisitions#readme",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
-    "bcrypt": "^6.0.0",
-    "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "drizzle-orm": "^0.45.1",
     "express": "^5.2.1",
     "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
-    "winston": "^3.19.0",
-    "zod": "^4.3.6"
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
