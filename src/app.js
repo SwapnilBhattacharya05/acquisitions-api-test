@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoute from "#routes/auth.route.js";
+import securityMiddleware from "#middleware/security.middleware.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(cookieParser()); // For parsing cookies that are sent in the headers of 
  */
 app.use(morgan("combined", {stream: {write: (message) => logger.info(message.trim())}}));
 
+app.use(securityMiddleware); // Apply the security middleware to all routes
 // Test Endpoint
 app.get('/', (req, res) => {
     logger.info("Hello from Acquisitions API!"); // Log a message to indicate that the endpoint was hit
