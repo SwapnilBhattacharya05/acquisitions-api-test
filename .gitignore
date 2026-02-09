@@ -23,6 +23,7 @@
 *.pem
 .idea
 .vscode
+/logs
 
 # debug
 npm-debug.log*
