@@ -42,16 +42,21 @@ app.get('/', (req, res) => {
 // Health Check Endpoint
 app.get('/health', (req, res) =>
   res.status(200).json({
-    status: 'ok',
+    status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
   })
 );
 
 // Readiness Check Endpoint
-app.get('/api', (req, res) => res.status(200).json({ status: 'ok' }));
+app.get('/api', (req, res) => res.status(200).json({ message: 'Acquisitions API is running' }));
 
 // Routes
 app.use('/api/auth', authRoute); // /api/auth/sign-up, /api/auth/sign-in, etc.
 app.use('/api/users', userRoute); // /api/users, etc.
+
+// No need of path since it acts as a catch-all Route
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
 export default app;
