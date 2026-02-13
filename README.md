@@ -23,16 +23,16 @@ It goes beyond basic CRUD by incorporating advanced security measures like **Arc
 
 Chose a modern, performance-oriented stack to ensure long-term maintainability and scalability.
 
-| Technology | Purpose | Why chose it |
-|------------|---------|-----------------|
-| **Node.js** | Runtime Environment | Non-blocking I/O model perfect for scalable network applications. |
-| **Express.js** | Web Framework | Minimalist, flexible, and robust set of features for web and mobile applications. |
-| **PostgreSQL** | Database | The world's most advanced open source relational database. |
-| **Drizzle ORM** | Data Access | Lightweight, type-safe, and developer-friendly ORM with zero dependencies. |
-| **Neon** | Database Platform | Serverless PostgreSQL that scales with your traffic. |
-| **Arcjet** | Security | Native rate limiting and bot protection integration. |
-| **Zod** | Validation | TypeScript-first schema declaration and validation library. |
-| **Docker** | Containerization | Ensures consistency across development and production environments. |
+| Technology      | Purpose             | Why chose it                                                                      |
+| --------------- | ------------------- | --------------------------------------------------------------------------------- |
+| **Node.js**     | Runtime Environment | Non-blocking I/O model perfect for scalable network applications.                 |
+| **Express.js**  | Web Framework       | Minimalist, flexible, and robust set of features for web and mobile applications. |
+| **PostgreSQL**  | Database            | The world's most advanced open source relational database.                        |
+| **Drizzle ORM** | Data Access         | Lightweight, type-safe, and developer-friendly ORM with zero dependencies.        |
+| **Neon**        | Database Platform   | Serverless PostgreSQL that scales with your traffic.                              |
+| **Arcjet**      | Security            | Native rate limiting and bot protection integration.                              |
+| **Zod**         | Validation          | TypeScript-first schema declaration and validation library.                       |
+| **Docker**      | Containerization    | Ensures consistency across development and production environments.               |
 
 ---
 
@@ -86,6 +86,7 @@ Follow these steps to set up the project locally.
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/SwapnilBhattacharya05/acquisitions-api-test.git
    cd acquisitions-api-test
@@ -111,6 +112,7 @@ The application relies on environment variables. Please refer to the linked exam
    ```
 
 **Key Variables:**
+
 - `DATABASE_URL`: Your PostgreSQL connection string.
 - `JWT_SECRET`: Secret key for signing tokens.
 - `ARCJET_KEY`: Key for Arcjet security services.
@@ -120,12 +122,15 @@ The application relies on environment variables. Please refer to the linked exam
 Provided optimized scripts for running via Docker.
 
 **Development Mode** (Hot-reloading + Local DB Proxy):
+
 ```bash
 npm run dev:docker
 ```
-*Access API at `http://localhost:3000`*
+
+_Access API at `http://localhost:3000`_
 
 **Production Mode**:
+
 ```bash
 npm run prod:docker
 ```
@@ -151,10 +156,11 @@ If you prefer running without Docker:
 Here are the primary endpoints available:
 
 ### Auth
+
 - `POST /api/auth/signup` - Register a new user.
 - `POST /api/auth/login` - Authenticate a user and receive a token.
 - `POST /api/auth/logout` - Clear user session.
 
-*Refer to the code in `src/routes` for a complete list of endpoints.*
+_Refer to the code in `src/routes` for a complete list of endpoints._
 
 ---
