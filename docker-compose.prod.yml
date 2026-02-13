@@ -9,7 +9,7 @@ services:
       target: development
     container_name: acquisitions-app-prod
     ports:
-      - "${PORT:-3000}:3000"
+      - '${PORT:-3000}:3000'
     env_file:
       - .env.production
     volumes:

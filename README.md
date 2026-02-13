@@ -30,15 +30,18 @@ A secure RESTful API for User Management and Authentication, built with Node.js,
 To start the application locally with a local database proxy:
 
 1.  **Configure Environment:**
+
     ```bash
     cp env.example .env.development
     # Edit .env.development with your configuration
     ```
 
 2.  **Start with Docker:**
+
     ```bash
     npm run dev:docker
     ```
+
     This will start the Node.js application (with hot-reload) and a Neon Local database proxy.
 
 3.  **Access:**
@@ -50,6 +53,7 @@ To start the application locally with a local database proxy:
 In production, the app connects directly to a cloud-hosted Neon database.
 
 1.  **Configure Environment:**
+
     ```bash
     cp env.example .env.production
     # Edit .env.production with your production Neon credentials
@@ -63,5 +67,6 @@ In production, the app connects directly to a cloud-hosted Neon database.
 ## Documentation
 
 For detailed information, please refer to:
+
 - [ARCHITECTURE.md](./ARCHITECTURE.md) - Deep dive into the system design.
 - [DOCKER_SETUP.md](./DOCKER_SETUP.md) - Comprehensive guide on Docker workflows, database management, and troubleshooting.

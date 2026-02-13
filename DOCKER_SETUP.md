@@ -25,7 +25,6 @@ The application utilizes a containerized architecture to ensure consistency acro
 1. **Environment Variables:**
    - Copy `env.example` to `.env.development` for local work.
    - Create `.env.production` for production deployments.
-   
 2. **Neon Local Directory:**
    The development setup requires a `.neon_local` directory to store ephemeral database state. This is automatically handled by the startup scripts but can be created manually:
    ```bash
@@ -37,17 +36,22 @@ The application utilizes a containerized architecture to ensure consistency acro
 The development environment is optimized for productivity with hot-reloading and a local database proxy.
 
 ### Starting Development
+
 Run the following command to start the development environment:
+
 ```bash
 npm run dev:docker
 ```
+
 This script:
+
 1. Verifies prerequisites.
 2. Applies Drizzle migrations to the database.
 3. Starts the `acquisitions-neon-local` container (database proxy).
 4. Starts the `acquisitions-app-dev` container with volume mounting for hot-reloading.
 
 ### Accessing the App
+
 - **API:** `http://localhost:3000`
 - **Database:** `postgres://neon:npg@localhost:5432/neondb` (via proxy)
 
@@ -56,11 +60,15 @@ This script:
 Production uses an optimized, secure image.
 
 ### Starting Production
+
 Run the following command:
+
 ```bash
 npm run prod:docker
 ```
+
 This script:
+
 1. Builds the production image using the `production` stage of the Dockerfile.
 2. Starts the container in detached mode (`-d`).
 3. Runs database migrations against the production Neon instance.
