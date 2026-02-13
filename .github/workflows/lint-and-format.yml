@@ -83,7 +83,7 @@ jobs:
           if [ "${{ steps.lint_check.outcome }}" == "success" ]; then
             echo "### ESLint: ✅ Clean" >> $GITHUB_STEP_SUMMARY
           elif [ "${{ job.status }}" == "success" ]; then
-            echo "### ESLint: ❌ Errors Found (Auto-fixed 🛠️)" >> $GITHUB_STEP_SUMMARY
+            echo "### ESLint: ✅ Errors Found (Auto-applied 🛠️)" >> $GITHUB_STEP_SUMMARY
           else
             echo "### ESLint: ❌ Errors Found (Auto-fix failed ⚠️)" >> $GITHUB_STEP_SUMMARY
           fi
@@ -91,7 +91,7 @@ jobs:
           if [ "${{ steps.format_check.outcome }}" == "success" ]; then
             echo "### Prettier: ✅ Clean" >> $GITHUB_STEP_SUMMARY
           elif [ "${{ job.status }}" == "success" ]; then
-            echo "### Prettier: ❌ Issues Found (Auto-formatted 🛠️)" >> $GITHUB_STEP_SUMMARY
+            echo "### Prettier: ✅ Issues Found (Auto-applied 🛠️)" >> $GITHUB_STEP_SUMMARY
           else
             echo "### Prettier: ❌ Issues Found (Auto-format failed ⚠️)" >> $GITHUB_STEP_SUMMARY
           fi
