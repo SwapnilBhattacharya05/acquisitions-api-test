@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }} # Checkout head_ref for PRs, ref_name for pushes
 
       - name: Setup Node.js 20.x
         uses: actions/setup-node@v4
@@ -28,27 +30,72 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESLint
-        id: eslint
+      - name: Check Linting
+        id: lint_check
+        continue-on-error: true
         run: |
-          echo "::notice::Running ESLint check..."
-          if ! npm run lint; then
-            echo "::error::ESLint found issues in your code"
-            echo "::notice::Run 'npm run lint:fix' to automatically fix some issues"
-            exit 1
-          fi
+          echo "::group::Running ESLint Check"
+          npm run lint
+          echo "::endgroup::"
 
-      - name: Run Prettier check
-        id: prettier
+      - name: Fix Linting Issues
+        if: steps.lint_check.outcome == 'failure'
         run: |
-          echo "::notice::Running Prettier format check..."
-          if ! npm run format:check; then
-            echo "::error::Code formatting issues found"
-            echo "::notice::Run 'npm run format' to fix formatting issues"
-            exit 1
-          fi
+          echo "::notice::Linting errors detected. Applying auto-fixes..."
+          npm run lint:fix
 
-      - name: Success notification
-        if: success()
+      - name: Check Formatting
+        id: format_check
+        continue-on-error: true
         run: |
-          echo "::notice::All linting and formatting checks passed! ✅"
+          echo "::group::Running Prettier Check"
+          npm run format:check
+          echo "::endgroup::"
+
+      - name: Fix Formatting Issues
+        if: steps.format_check.outcome == 'failure'
+        run: |
+          echo "::notice::Formatting issues detected. Applying auto-formatting..."
+          npm run format
+
+      - name: Verify Fixes
+        if: steps.lint_check.outcome == 'failure' || steps.format_check.outcome == 'failure'
+        run: |
+          echo "::group::Verifying fixes..."
+          npm run lint && npm run format:check
+          echo "::endgroup::"
+
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        if: steps.lint_check.outcome == 'failure' || steps.format_check.outcome == 'failure'
+        with:
+          commit_message: "chore: auto-fix linting and formatting issues"
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Generate Workflow Summary
+        if: always()
+        run: |
+          echo "## Lint & Format Report 📝" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.lint_check.outcome }}" == "success" ]; then
+            echo "### ESLint: ✅ Clean" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ job.status }}" == "success" ]; then
+            echo "### ESLint: ❌ Errors Found (Auto-fixed 🛠️)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ESLint: ❌ Errors Found (Auto-fix failed ⚠️)" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ steps.format_check.outcome }}" == "success" ]; then
+            echo "### Prettier: ✅ Clean" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ job.status }}" == "success" ]; then
+            echo "### Prettier: ❌ Issues Found (Auto-formatted 🛠️)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### Prettier: ❌ Issues Found (Auto-format failed ⚠️)" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "> [!NOTE]" >> $GITHUB_STEP_SUMMARY
+          echo "> If any issues were fixed, they have been automatically committed to your branch." >> $GITHUB_STEP_SUMMARY
