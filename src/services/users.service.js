@@ -17,7 +17,7 @@ export const getAllUsers = async () => {
       .from(users);
   } catch (e) {
     logger.error('Error getting users', e);
-    throw new Error('Error getting users');
+    throw new Error('Error getting users', { cause: e });
   }
 };
 
@@ -43,7 +43,7 @@ export const getUserById = async id => {
     return user;
   } catch (e) {
     logger.error(`Error getting user by id: ${id}`, e);
-    throw new Error('Error getting user');
+    throw new Error('Error getting user', { cause: e });
   }
 };
 
@@ -89,7 +89,7 @@ export const updateUser = async (id, updates) => {
     logger.error('Error updating user', e);
     if (e.message === 'User not found' || e.message === 'Email already exist')
       throw e;
-    throw new Error('Error updating user');
+    throw new Error('Error updating user', { cause: e });
   }
 };
 
@@ -117,6 +117,6 @@ export const deleteUser = async id => {
   } catch (e) {
     logger.error('Error deleting user', e);
     if (e.message === 'User not found') throw e;
-    throw new Error('Error deleting user');
+    throw new Error('Error deleting user', { cause: e });
   }
 };
