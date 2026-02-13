@@ -49,7 +49,9 @@ app.get('/health', (req, res) =>
 );
 
 // Readiness Check Endpoint
-app.get('/api', (req, res) => res.status(200).json({ message: 'Acquisitions API is running' }));
+app.get('/api', (req, res) =>
+  res.status(200).json({ message: 'Acquisitions API is running' })
+);
 
 // Routes
 app.use('/api/auth', authRoute); // /api/auth/sign-up, /api/auth/sign-in, etc.

@@ -9,7 +9,7 @@ export const hashPassword = async password => {
     return await bcrypt.hash(password, 10);
   } catch (e) {
     logger.error(`Error hashing the password: ${e}`);
-    throw new Error('Error hashing');
+    throw new Error('Error hashing', { cause: e });
   }
 };
 
@@ -18,7 +18,7 @@ export const comparePassword = async (password, hashedPassword) => {
     return await bcrypt.compare(password, hashedPassword);
   } catch (e) {
     logger.error(`Error comparing password: ${e}`);
-    throw new Error('Error comparing password');
+    throw new Error('Error comparing password', { cause: e });
   }
 };
 
