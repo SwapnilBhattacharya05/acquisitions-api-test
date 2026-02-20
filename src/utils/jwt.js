@@ -3,7 +3,8 @@ import logger from '#config/logger.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'hardcoded-secret-test';
 
-const JWT_EXPIRES_IN = process.env.JWT_SECRET_EXPIRES_IN || 'hardcoded-secret-time-test'; // Token expires in 1 day
+const JWT_EXPIRES_IN =
+  process.env.JWT_SECRET_EXPIRES_IN || 'hardcoded-secret-time-test'; // Token expires in 1 day
 
 // JWT consisting methods for verifying tokens
 export const jwttoken = {
