@@ -79,7 +79,7 @@ Follow these steps to set up the project locally.
 
 ### Prerequisites
 
-- **Node.js** (v20+ recommended)
+- **Node.js** (v24+ recommended)
 - **Docker & Docker Compose**
 - **PostgreSQL** (or a Neon account)
 
