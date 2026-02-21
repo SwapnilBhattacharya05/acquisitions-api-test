@@ -1,8 +1,12 @@
 import jwt from 'jsonwebtoken';
 import logger from '#config/logger.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'hardcoded-secret';
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_SECRET_EXPIRES_IN;
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
 
 // JWT consisting methods for verifying tokens
 export const jwttoken = {
